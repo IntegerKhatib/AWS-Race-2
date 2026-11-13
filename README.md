@@ -18,7 +18,7 @@ An **AI Provider settings** screen lets operators configure a chosen model/provi
 
 ## Architecture
 
-See [editable Mermaid diagram](architecture/live-media-intelligence.mmd) and [article draft](docs/article.md).
+See the [architecture graphic (SVG)](architecture/live-media-intelligence.svg), [editable Mermaid diagram](architecture/live-media-intelligence.mmd), and [article draft](docs/article.md).
 
 ## Example code
 
