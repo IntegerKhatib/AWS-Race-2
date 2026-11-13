@@ -1,0 +1,39 @@
+flowchart LR
+  U[Operators / Browser] --> EC2
+  SRC[Camera / OBS / Encoder] -->|RTMPS| IVS
+  subgraph EC2[Amazon EC2 - Microservices Platform]
+    WEB[Web UI]
+    API[API + Auth / RBAC]
+    EVT[Events + IVS Provisioning]
+    LIVE[Live Operations]
+    AI[AI Orchestrator + Frame / Audio Adapters]
+    LIB[Media Library]
+    CLIP[Clip / Export Worker]
+    LLM[Ask MediaFlux AI / Bedrock Adapter]
+    USERS[User Management]
+    WEB --> API
+    API --> EVT
+    API --> LIVE
+    API --> LIB
+    API --> AI
+    API --> CLIP
+    API --> LLM
+    API --> USERS
+  end
+  EVT -->|CreateChannel with optional recording| IVS[Amazon IVS]
+  IVS -->|Playback| LIVE
+  IVS -->|Optional recording| S3[(Amazon S3)]
+  S3 -->|Recording playback + assets| LIB
+  AI -->|Sampled images| REK[Amazon Rekognition]
+  AI -->|Audio adapter| TR[Amazon Transcribe]
+  TR -->|Transcript text| TL[Amazon Translate]
+  REK -->|Faces + observations| AI
+  TL -->|Arabic / English| AI
+  AI -->|Metadata| LIB
+  CLIP -->|Media input + timecodes| MC[AWS Elemental MediaConvert]
+  S3 -->|Recorded media| MC
+  MC -->|Transcoded clip| S3
+  LLM -->|Retrieve permitted transcript + metadata| LIB
+  LLM -->|Summarize / answer| BEDROCK[Amazon Bedrock]
+  BEDROCK -->|Generated response| LLM
+  SRC -.->|Optional independent audio/frame capture for near-live AI| AI
