@@ -1,10 +1,10 @@
-# Building LiveMedia Intelligence: An EC2 Microservices Platform for Live Streaming, AI Analysis, and Smart Media Workflows on AWS
+# Building MediaFlux AI on AWS: Live Streaming, AI Analysis, and Smart Media Workflows with EC2 Microservices
 
 *AWS Community Builders — Speed Run Race 2 | Engineering case study and reference design*
 
 A live streaming event is not finished when the video reaches the player. Production teams also need to understand what happened, convert speech into searchable text, translate content, identify visual moments, create clips, share approved outputs, and return to a recording to ask specific questions. These tasks frequently require separate interfaces and manual handoffs.
 
-**LiveMedia Intelligence** combines them in one web application. Rather than replacing AWS media services, the application runs as **containerized microservices on Amazon EC2** and connects specialized AWS APIs to the decisions made by producers, operators, and administrators. This article focuses on seven managed AWS media/AI services plus EC2: **Amazon IVS, Amazon S3, Amazon Rekognition, Amazon Transcribe, Amazon Translate, AWS Elemental MediaConvert, Amazon Bedrock, and Amazon EC2**. It deliberately excludes unrelated platform capabilities and any private product source.
+**MediaFlux AI** combines them in one web application. Rather than replacing AWS media services, the application runs as **containerized microservices on Amazon EC2** and connects specialized AWS APIs to the decisions made by producers, operators, and administrators. This article focuses on seven managed AWS media/AI services plus EC2: **Amazon IVS, Amazon S3, Amazon Rekognition, Amazon Transcribe, Amazon Translate, AWS Elemental MediaConvert, Amazon Bedrock, and Amazon EC2**. It deliberately excludes unrelated platform capabilities and any private product source.
 
 ## What users see: five application areas
 
@@ -31,7 +31,7 @@ The application layer runs on Amazon EC2 with separate frontend, backend/API, an
 | **AWS Elemental MediaConvert** | Process supported recorded media, extract selected time ranges, and create/transcode clips |
 | **Amazon Bedrock** | Perform model inference and reasoning over authorized transcripts and enrichment metadata |
 
-**Architecture diagram:** [LiveMedia Intelligence — SVG](../architecture/live-media-intelligence.svg) · [Editable flow](../architecture/live-media-intelligence.mmd)
+**Architecture diagram:** [MediaFlux AI — SVG](../architecture/live-media-intelligence.svg) · [Editable flow](../architecture/mediaflux-ai.mmd)
 
 This is a deliberately different architecture from the AWS Media2Cloud guidance. Media2Cloud principally describes serverless asset ingestion and analysis. Here, an **EC2-hosted microservices application** begins with a live event and controls IVS channel lifecycle, near-live operator workflows, optional recording, and interactive review. Media2Cloud informed the diagramming approach, not the service inventory.
 
@@ -71,7 +71,7 @@ IVS recordings are typically HLS assets and metadata, not automatically one MP4.
 
 Sharing and export are authorized application operations. The backend checks permissions before issuing a time-limited delivery link or another controlled export mechanism. The S3 bucket should not be publicly exposed merely to make sharing easy.
 
-### Ask LiveMedia — questions answered using Amazon Bedrock
+### Ask MediaFlux AI — questions answered using Amazon Bedrock
 
 The operator asks a question such as **“What did the presenter say about the deployment strategy?”** The assistant first verifies access to the selected event or recording and retrieves relevant transcript passages, translations, and storyboard metadata. It provides that bounded context to an available model through **Amazon Bedrock**, then returns a response with supporting time references where available.
 
@@ -115,12 +115,12 @@ Especially for the AI assistant, retrieval must be permission-scoped: a user can
 6. An operator chooses a segment; **MediaConvert** builds a supported subclip and stores it in **S3**.
 7. The operator shares or exports an approved clip using backend authorization.
 8. When recording was enabled, the event is accessible in **Media Library** along with its enrichment metadata.
-9. The user asks **Ask LiveMedia** a recording-specific question; **Bedrock** answers using only the authorized context retrieved by the application.
+9. The user asks **Ask MediaFlux AI** a recording-specific question; **Bedrock** answers using only the authorized context retrieved by the application.
 10. An administrator uses **AI Providers** and **User Management** to control model access and user privileges.
 
 ## Conclusion
 
-**LiveMedia Intelligence** demonstrates how **microservices on Amazon EC2** can deliver a coherent live-media production workspace by orchestrating exactly the AWS services needed for ingest, optional recording, analysis, translation, clip creation, and generative-AI-assisted review. The engineering value is not another video player or AI endpoint: it is the consistent workflow, event/time synchronization, permissions, and media lifecycle connecting them.
+**MediaFlux AI** demonstrates how **microservices on Amazon EC2** can deliver a coherent live-media production workspace by orchestrating exactly the AWS services needed for ingest, optional recording, analysis, translation, clip creation, and generative-AI-assisted review. The engineering value is not another video player or AI endpoint: it is the consistent workflow, event/time synchronization, permissions, and media lifecycle connecting them.
 
 *This repository is a public-safe architectural case study and independent reference examples, not the proprietary application source and not a claim of a separately validated production deployment.*
 
