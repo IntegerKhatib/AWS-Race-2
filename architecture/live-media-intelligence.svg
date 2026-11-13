@@ -6,7 +6,7 @@
  <marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#276396"/></marker>
 </defs>
 <rect width="1500" height="1020" fill="#fff"/>
-<text x="60" y="65" class="h">LiveMedia Intelligence — AWS Reference Architecture</text>
+<text x="60" y="65" class="h">MediaFlux AI — AWS Reference Architecture</text>
 <text x="62" y="93" class="s muted">EC2-hosted microservices with AWS-managed live media and AI services</text>
 <rect x="42" y="130" width="290" height="775" rx="18" class="panel"/>
 <text x="68" y="170" class="t">Web interface</text>
@@ -24,7 +24,7 @@
 <g text-anchor="middle"><text x="1227" y="227" class="t">Amazon IVS</text><text x="1227" y="252" class="s muted">Channel / ingest / playback</text><text x="1227" y="322" class="t">Amazon S3</text><text x="1227" y="347" class="s muted">Optional recording and clips</text><text x="1227" y="417" class="t">Amazon Rekognition</text><text x="1227" y="442" class="s muted">Face detection on sampled frames</text><text x="1227" y="512" class="t">Amazon Transcribe</text><text x="1227" y="537" class="s muted">Speech to text</text><text x="1227" y="607" class="t">Amazon Translate</text><text x="1227" y="632" class="s muted">Arabic / English</text><text x="1227" y="702" class="t">AWS Elemental MediaConvert</text><text x="1227" y="727" class="s muted">Subclips and transcoding</text></g>
 <rect x="1026" y="765" width="402" height="80" rx="12" class="aws"/>
 <text x="1227" y="797" class="t" text-anchor="middle">Amazon Bedrock</text>
-<text x="1227" y="822" class="s muted" text-anchor="middle">Ask LiveMedia + AI summaries</text>
+<text x="1227" y="822" class="s muted" text-anchor="middle">Ask MediaFlux AI + AI summaries</text>
 <path class="line" d="M932 700H987V805H1026"/>
 <path class="line" d="M303 450H396"/>
 <path class="line" d="M932 269H1026"/>
