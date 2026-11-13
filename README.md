@@ -13,12 +13,17 @@ A **public-safe technical case study** and reference examples for an EC2-hosted 
 - **Amazon Transcribe** processes extracted or separately captured audio into speech-to-text.
 - **Amazon Translate** translates transcript text between English and Arabic.
 - **AWS Elemental MediaConvert** generates and transcodes selected subclips from supported S3 media inputs.
+- **Amazon Bedrock** runs a supported foundation model for recording summaries and evidence-grounded questions in the Ask LiveMedia assistant.
 
-An **AI Provider settings** screen lets operators configure a chosen model/provider. This configurable LLM integration is an application extension; no additional hosted AWS model service is asserted as part of the seven-service architecture.
+An **AI Provider settings** screen lets operators configure a chosen model/provider. Amazon Bedrock is the default AWS foundation-model inference service for Ask LiveMedia. Provider configuration allows a model to be selected or configured; supported models, credentials, and API access must be validated in deployment.
 
 ## Architecture
 
 See the [architecture graphic (SVG)](architecture/live-media-intelligence.svg), [editable Mermaid diagram](architecture/live-media-intelligence.mmd), and [article draft](docs/article.md).
+
+## Bedrock implementation review
+
+The private source reference should include `backend/src/services/bedrockSummaryService.js`, relevant Ask Live application orchestration services, and the AI Providers route/UI. Do not copy private implementation code into this public repository. See [integration contracts](docs/integration-contracts.md).
 
 ## Example code
 
