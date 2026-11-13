@@ -25,8 +25,9 @@ The application frontend, backend API, event/channel service, live operations se
 | **Amazon Transcribe** | Produces speech-to-text from a streaming audio adapter or recorded media |
 | **Amazon Translate** | Translates transcript text between Arabic and English |
 | **AWS Elemental MediaConvert** | Selects media ranges and transcodes resulting video clips |
+| **Amazon Bedrock** | Performs foundation-model inference for recording summaries and evidence-grounded Ask LiveMedia questions |
 
-The browser's Ask Assistant can use a configured LLM provider with relevant transcript and metadata context. We intentionally keep that provider abstract rather than claiming an eighth named AWS service.
+The **Ask LiveMedia** assistant uses **Amazon Bedrock** for foundation-model inference against authorized transcript and media-analysis context. The AI Providers screen controls the supported provider/model configuration. Bedrock is the eighth AWS service in this architecture.
 
 [View the editable architecture diagram](../architecture/live-media-intelligence.mmd). The diagram's layout was independently designed for this live-event workflow, taking general inspiration from AWS Media2Cloud architecture guidance.
 
@@ -87,7 +88,7 @@ The application checks whether the requested user can view or export an asset. M
 
 ### Ask questions about recordings
 
-Users may ask the configured assistant questions against available transcripts and enriched media metadata. Application code retrieves only authorized content and supplies that evidence to the configured LLM provider. Responses should refer back to recording positions and sources where possible. Neither IVS nor Transcribe natively exposes a complete media-specific Q&A assistant.
+Users can ask **Ask LiveMedia** about an event or recording—for example, “Summarize the presentation,” or “What did the speaker say about latency?” The backend first authorizes the user against the selected recording and retrieves relevant transcription, translation, and storyboard metadata. It then supplies that context to a supported foundation model through **Amazon Bedrock** (for example via the Converse API) and returns an answer with available recording-time references. This is an application-orchestrated, retrieval-grounded workflow: Bedrock does not itself index private recordings, fetch the correct transcript, or enforce media permissions. The public demo must implement these steps explicitly; any retrieval/search index is application infrastructure rather than an asserted additional AWS service.
 
 ### A critical integration boundary
 
@@ -121,9 +122,9 @@ This is a conceptual public example, not the private application's database sche
 
 ## 4. AI Providers: a configurable model integration
 
-The **AI Providers** administration screen allows authorized operators to configure a language-model provider for the assistant and check its connectivity. The public reference architecture deliberately avoids publishing proprietary provider details, private endpoints, or credentials.
+The **AI Providers** administration screen lets authorized operators configure a supported foundation model for **Amazon Bedrock**, including its model identifier or inference profile and Region, and test connectivity. Bedrock requests are sent from the authenticated backend, not directly from the browser. The public reference architecture deliberately avoids publishing private endpoints, credentials, or proprietary provider details.
 
-Keeping the assistant provider-independent lets the media pipeline produce reusable transcripts and enrichment metadata. Administrators can manage model governance separately from IVS channel operations and media processing.
+Keeping the AI provider settings independent from media ingestion lets the media pipeline produce reusable transcripts and enrichment metadata. Administrators can manage model governance separately from IVS channel operations and media processing.
 
 The assistant must always check access permissions **before** fetching transcript or media context.
 
@@ -147,6 +148,27 @@ Each layer has a clear responsibility:
 
 Microservices do not automatically deliver high availability. Instance recovery, deployment strategy, monitoring, scaling, service authentication, and resilience still require engineering effort.
 
+### Example Bedrock integration boundary
+
+The application—not the browser—calls Bedrock with only authorized, size-bounded context. This minimal Python example illustrates model invocation; it does not implement authorization, transcript retrieval, or citations:
+
+~~~python
+import boto3
+
+bedrock = boto3.client("bedrock-runtime", region_name="us-east-1")
+response = bedrock.converse(
+    modelId="YOUR_SUPPORTED_MODEL_ID_OR_INFERENCE_PROFILE",
+    messages=[{
+        "role": "user",
+        "content": [{"text": "Based only on this transcript excerpt, summarize the event:\n" + transcript_excerpt}]
+    }],
+    inferenceConfig={"maxTokens": 400, "temperature": 0.1}
+)
+summary = "".join(part.get("text", "") for part in response["output"]["message"]["content"])
+~~~
+
+Select a model accessible in the deployment Region, grant the backend IAM role only the required Bedrock invocation permissions, redact sensitive transcript data where necessary, and log usage and errors without logging private transcript text by default. For Q&A, the worker should retrieve relevant transcript segments with time offsets rather than pass an entire multi-hour recording to the model.
+
 ## 7. Reproducible demo workflow
 
 Use owned or licensed demonstration video, synthetic identities, and AWS credentials with narrowly scoped permissions.
@@ -159,7 +181,7 @@ Use owned or licensed demonstration video, synthetic identities, and AWS credent
 6. Translate selected transcript portions between English and Arabic; preserve time alignment.
 7. Stop streaming, identify the finalized S3 recording and its actual media paths.
 8. Submit an appropriate MediaConvert clip job with supported input and valid timecodes; verify the S3 output.
-9. Ask the configured assistant a question supported by the authorized transcript and inspect the evidence.
+9. Use Amazon Bedrock to summarize an authorized transcript and ask a grounded question through Ask LiveMedia; inspect cited timestamps and verify responses against source content.
 10. Test different user profiles, verifying backend authorization for both media and administration.
 
 **Important:** The companion repository provides standalone SDK examples and architecture contracts. It is **not** a one-click deployment or a public copy of the production system. Integration adapters and real AWS setup are still required.
@@ -179,7 +201,7 @@ For a valuable engineering report, gather **measured** data rather than estimate
 | MediaConvert job duration | Time from clip request to completed output |
 | S3 footprint | Stored recording and subclip sizes |
 
-Cost dimensions are separate: EC2 runtime, IVS live input/viewer hours, S3 requests and storage, Rekognition image processing, Transcribe audio, Translate characters, and MediaConvert output. Configured LLM services may incur separate charges.
+Cost dimensions are separate: EC2 runtime, IVS live input/viewer hours, S3 requests and storage, Rekognition image processing, Transcribe audio, Translate characters, MediaConvert output, and **Bedrock model input/output token usage**.
 
 ## 9. Lessons learned
 
@@ -197,7 +219,7 @@ Cost dimensions are separate: EC2 runtime, IVS live input/viewer hours, S3 reque
 
 Live media operations involve event preparation, ingest, AI processing, optional recording, media review, and clip delivery. The challenge is to make this a coherent operator workflow without reimplementing the underlying media services.
 
-**LiveMedia Intelligence** demonstrates how an EC2-hosted microservices control plane can coordinate **Amazon IVS, Amazon S3, Amazon Rekognition, Amazon Transcribe, Amazon Translate, and AWS Elemental MediaConvert**. Operators can prepare a channel, monitor a stream, enrich its content, and return to resulting media assets as needed.
+**LiveMedia Intelligence** demonstrates how an EC2-hosted microservices control plane can coordinate **Amazon IVS, Amazon S3, Amazon Rekognition, Amazon Transcribe, Amazon Translate, **AWS Elemental MediaConvert, and Amazon Bedrock**. Operators can prepare a channel, monitor a stream, enrich its content, and return to resulting media assets as needed.
 
 The transferable engineering principle is to **start with the operator journey, define clean service boundaries, and use AWS managed services where their specialized capabilities make the most difference**.
 
@@ -209,4 +231,5 @@ The transferable engineering principle is to **start with the operator journey, 
 - [Rekognition streaming video availability](https://docs.aws.amazon.com/rekognition/latest/dg/streaming-video.html)
 - [Amazon Transcribe language support](https://docs.aws.amazon.com/transcribe/latest/dg/supported-languages.html)
 - [MediaConvert input clipping](https://docs.aws.amazon.com/mediaconvert/latest/ug/specifying-inputs.html)
+- [Amazon Bedrock Converse API](https://docs.aws.amazon.com/bedrock/latest/userguide/conversation-inference.html)
 - [Guidance for Media2Cloud on AWS](https://docs.aws.amazon.com/solutions/media2cloud-on-aws/)
