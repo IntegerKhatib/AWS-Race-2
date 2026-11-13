@@ -9,7 +9,7 @@ flowchart LR
     AI[AI Orchestrator + Frame / Audio Adapters]
     LIB[Media Library]
     CLIP[Clip / Export Worker]
-    LLM[Configurable LLM + Ask Assistant]
+    LLM[Ask LiveMedia / Bedrock Adapter]
     USERS[User Management]
     WEB --> API
     API --> EVT
@@ -33,5 +33,7 @@ flowchart LR
   CLIP -->|Media input + timecodes| MC[AWS Elemental MediaConvert]
   S3 -->|Recorded media| MC
   MC -->|Transcoded clip| S3
-  LLM -->|Search / Q&A over indexed transcript + metadata| LIB
+  LLM -->|Retrieve permitted transcript + metadata| LIB
+  LLM -->|Summarize / answer| BEDROCK[Amazon Bedrock]
+  BEDROCK -->|Generated response| LLM
   SRC -.->|Optional independent audio/frame capture for near-live AI| AI
