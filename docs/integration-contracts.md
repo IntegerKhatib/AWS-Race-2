@@ -28,7 +28,9 @@ The user selects recording and start/end timecodes; a worker validates available
 
 ## Ask assistant
 
-Use the transcript and AI metadata as retrieval context. The configurable LLM provider answers questions subject to authorization and grounded evidence. A configured provider is *not* a proof that every model/provider or every retrieval feature is implemented.
+**Amazon Bedrock** is the default foundation-model inference service for Ask LiveMedia. Backend steps: authenticate user; authorize recording; retrieve bounded relevant transcript and storyboard metadata with time offsets; invoke a supported Bedrock model (e.g. Converse API) with instructions to rely on supplied evidence; return source-grounded answer and timestamps; record request status, usage, and failures without exposing credentials or private media.
+
+AI Providers configuration manages supported Bedrock model IDs/inference profiles, Regions, and connection testing. A configured provider is *not* proof that every model, retrieval feature, or third-party provider is implemented. IAM permissions, Region/model availability, input limits, and cost controls must be verified.
 
 ## Access control
 
