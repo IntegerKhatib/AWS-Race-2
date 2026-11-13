@@ -1,4 +1,4 @@
-# AWS Race 2 — LiveMedia Intelligence
+# AWS Race 2 — MediaFlux AI
 
 A **public-safe technical case study** and reference examples for an EC2-hosted microservices-based live media intelligence platform.
 
@@ -13,13 +13,13 @@ A **public-safe technical case study** and reference examples for an EC2-hosted 
 - **Amazon Transcribe** processes extracted or separately captured audio into speech-to-text.
 - **Amazon Translate** translates transcript text between English and Arabic.
 - **AWS Elemental MediaConvert** generates and transcodes selected subclips from supported S3 media inputs.
-- **Amazon Bedrock** runs a supported foundation model for recording summaries and evidence-grounded questions in the Ask LiveMedia assistant.
+- **Amazon Bedrock** runs a supported foundation model for recording summaries and evidence-grounded questions in the Ask MediaFlux AI assistant.
 
-An **AI Provider settings** screen lets operators configure a chosen model/provider. Amazon Bedrock is the default AWS foundation-model inference service for Ask LiveMedia. Provider configuration allows a model to be selected or configured; supported models, credentials, and API access must be validated in deployment.
+An **AI Provider settings** screen lets operators configure a chosen model/provider. Amazon Bedrock is the default AWS foundation-model inference service for Ask MediaFlux AI. Provider configuration allows a model to be selected or configured; supported models, credentials, and API access must be validated in deployment.
 
 ## Architecture
 
-See the [architecture graphic (SVG)](architecture/live-media-intelligence.svg), [editable Mermaid diagram](architecture/live-media-intelligence.mmd), and [article draft](docs/article.md).
+See the [architecture graphic (SVG)](architecture/mediaflux-ai.svg), [editable Mermaid diagram](architecture/mediaflux-ai.mmd), and [article draft](docs/article.md).
 
 ## Bedrock implementation review
 
