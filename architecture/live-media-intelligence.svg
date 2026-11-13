@@ -1,14 +1,14 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="900" viewBox="0 0 1500 900">
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="1020" viewBox="0 0 1500 1020">
 <defs>
  <style>
  text{font-family:Arial,Helvetica,sans-serif;fill:#132b46} .h{font-weight:700;font-size:30px}.t{font-size:19px;font-weight:700}.s{font-size:15px}.panel{fill:#f7fafc;stroke:#a8bdd0;stroke-width:2}.svc{fill:#ffffff;stroke:#a4bbce;stroke-width:2}.aws{fill:#fff5e9;stroke:#ed920f;stroke-width:2}.line{stroke:#276396;stroke-width:3;fill:none;marker-end:url(#arrow)}.muted{fill:#48667d}
  </style>
  <marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#276396"/></marker>
 </defs>
-<rect width="1500" height="900" fill="#fff"/>
+<rect width="1500" height="1020" fill="#fff"/>
 <text x="60" y="65" class="h">LiveMedia Intelligence — AWS Reference Architecture</text>
 <text x="62" y="93" class="s muted">EC2-hosted microservices with AWS-managed live media and AI services</text>
-<rect x="42" y="130" width="290" height="665" rx="18" class="panel"/>
+<rect x="42" y="130" width="290" height="775" rx="18" class="panel"/>
 <text x="68" y="170" class="t">Web interface</text>
 <text x="66" y="202" class="s">Operators and administrators</text>
 <g class="svc"><rect x="68" y="233" width="235" height="75" rx="10"/><rect x="68" y="326" width="235" height="75" rx="10"/><rect x="68" y="419" width="235" height="75" rx="10"/><rect x="68" y="512" width="235" height="75" rx="10"/><rect x="68" y="605" width="235" height="75" rx="10"/></g>
@@ -22,6 +22,10 @@
 <text x="1026" y="170" class="t">AWS managed services</text>
 <g class="aws"><rect x="1026" y="195" width="402" height="80" rx="12"/><rect x="1026" y="290" width="402" height="80" rx="12"/><rect x="1026" y="385" width="402" height="80" rx="12"/><rect x="1026" y="480" width="402" height="80" rx="12"/><rect x="1026" y="575" width="402" height="80" rx="12"/><rect x="1026" y="670" width="402" height="80" rx="12"/></g>
 <g text-anchor="middle"><text x="1227" y="227" class="t">Amazon IVS</text><text x="1227" y="252" class="s muted">Channel / ingest / playback</text><text x="1227" y="322" class="t">Amazon S3</text><text x="1227" y="347" class="s muted">Optional recording and clips</text><text x="1227" y="417" class="t">Amazon Rekognition</text><text x="1227" y="442" class="s muted">Face detection on sampled frames</text><text x="1227" y="512" class="t">Amazon Transcribe</text><text x="1227" y="537" class="s muted">Speech to text</text><text x="1227" y="607" class="t">Amazon Translate</text><text x="1227" y="632" class="s muted">Arabic / English</text><text x="1227" y="702" class="t">AWS Elemental MediaConvert</text><text x="1227" y="727" class="s muted">Subclips and transcoding</text></g>
+<rect x="1026" y="765" width="402" height="80" rx="12" class="aws"/>
+<text x="1227" y="797" class="t" text-anchor="middle">Amazon Bedrock</text>
+<text x="1227" y="822" class="s muted" text-anchor="middle">Ask LiveMedia + AI summaries</text>
+<path class="line" d="M932 700H987V805H1026"/>
 <path class="line" d="M303 450H396"/>
 <path class="line" d="M932 269H1026"/>
 <path class="line" d="M932 407H985V330H1026"/>
@@ -29,5 +33,5 @@
 <path class="line" d="M657 570H984V519H1026"/>
 <path class="line" d="M657 590H985V614H1026"/>
 <path class="line" d="M932 560H983V708H1026"/>
-<text x="48" y="850" class="s muted">Reference architecture only • For streaming AI, separate authorized frame/audio capture adapters are required</text>
+<text x="48" y="968" class="s muted">Reference architecture only • For streaming AI, separate authorized frame/audio capture adapters are required</text>
 </svg>
