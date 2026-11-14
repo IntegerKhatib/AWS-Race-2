@@ -36,6 +36,9 @@ def main() -> int:
     scanned = 0
     for name in tracked_files():
         path = Path(name)
+        # Scanner rules contain the very signatures being searched.
+        if name == "scripts/security_scan.py":
+            continue
         if not path.is_file():
             continue
         raw = path.read_bytes()
