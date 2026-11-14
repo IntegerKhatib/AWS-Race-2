@@ -9,4 +9,4 @@
 - [ ] Specify precisely how Ask MediaFlux AI retrieves authorized transcript and metadata context, associates citations/timestamps, and calls Bedrock.
 - [ ] Record measured results: IVS setup time, AI processing delay, sample transcript, translation, clip job duration, and final object key.
 - [ ] Add repository license chosen by the owner and ensure rights to publish examples.
-- [ ] Review all details against private source before claiming implemented behavior.
+- [ ] Validate all implementation claims with reproducible tests before publication.
