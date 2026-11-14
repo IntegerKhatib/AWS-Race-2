@@ -2,7 +2,7 @@
 
 A **public-safe technical case study** and reference examples for an EC2-hosted microservices-based live media intelligence platform.
 
-> This repository is **not** the private production platform, its source code, nor a fully deployable replacement. It is an independent educational companion for the AWS Community Builders Speed Run 2 article.
+> This repository contains an independent architectural reference and educational examples for AWS Speed Run Race 2. It is not a complete deployable application.
 
 ## Scope
 
@@ -21,9 +21,10 @@ An **AI Provider settings** screen lets operators configure a chosen model/provi
 
 See the [architecture graphic (SVG)](architecture/mediaflux-ai.svg), [editable Mermaid diagram](architecture/mediaflux-ai.mmd), and [article draft](docs/article.md).
 
-## Bedrock implementation review
+## Amazon Bedrock integration
 
-The private source reference should include `backend/src/services/bedrockSummaryService.js`, relevant Ask Live application orchestration services, and the AI Providers route/UI. Do not copy private implementation code into this public repository. See [integration contracts](docs/integration-contracts.md).
+The reference design describes authorized transcript retrieval, model invocation, and recording-grounded question answering. See [integration contracts](docs/integration-contracts.md) for public integration boundaries.
+
 
 ## Example code
 
@@ -31,11 +32,11 @@ The private source reference should include `backend/src/services/bedrockSummary
 - [Rekognition face detection from an S3 frame](examples/detect_faces.py)
 - [Transcribe / Translate / MediaConvert integration pseudocode](docs/integration-contracts.md)
 
-Examples are illustrative, require an authorized AWS account and configured IAM permissions, and have **not** been validated end-to-end against the private product.
+Examples are illustrative, require an authorized AWS account and configured IAM permissions, and have **not** been validated end-to-end as a deployable platform.
 
 ## Privacy and security
 
-Do not commit the original application's code, private endpoints, stream keys, user emails, API tokens, account identifiers, identifiable faces, or copyrighted source media. Use synthetic demonstration assets. See [publication checklist](docs/publication-checklist.md).
+Do not commit confidential source code, private endpoints, stream keys, user emails, API tokens, account identifiers, identifiable faces, or copyrighted source media. Use synthetic demonstration assets. See [publication checklist](docs/publication-checklist.md).
 
 ## References
 
