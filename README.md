@@ -36,7 +36,9 @@ Examples are illustrative, require an authorized AWS account and configured IAM 
 
 ## Privacy and security
 
-Do not commit confidential source code, private endpoints, stream keys, user emails, API tokens, account identifiers, identifiable faces, or copyrighted source media. Use synthetic demonstration assets. See [publication checklist](docs/publication-checklist.md).
+This public project contains **only reference architecture, documentation, and standalone AWS SDK examples**; it does not include the application source or production credentials. Do not commit confidential code, private endpoints, stream keys, user emails, API tokens, account identifiers, identifiable faces, or copyrighted source media. Use synthetic demonstration assets.
+
+Every push and pull request to the default branch is subject to a [targeted source safety check](.github/workflows/security-check.yml) and [.gitignore](.gitignore) excludes common credential, build, and media artifacts. These safeguards are **not a complete security audit**, and Git history remains separately reviewable. See [SECURITY.md](SECURITY.md) and the [publication checklist](docs/publication-checklist.md).
 
 ## References
 
