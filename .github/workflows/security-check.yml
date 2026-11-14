@@ -1,0 +1,25 @@
+name: Public repository safety check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  source-safety:
+    name: Check current source for sensitive patterns
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout current branch
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          fetch-depth: 1
+      - name: Run repository safety scan
+        run: python3 scripts/security_scan.py
+      - name: Verify public reference examples compile
+        run: python3 -m py_compile examples/create_ivs_channel.py examples/detect_faces.py
