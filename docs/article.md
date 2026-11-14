@@ -41,7 +41,7 @@ The operator selects **Create Event** and enters the event name, relevant detail
 
 When the user enables recording, the service attaches a valid IVS recording configuration connected to an authorized S3 bucket. **Recording is opt-in**, not an implicit side effect of every channel. The returned stream key is a credential: keep it out of browser logs, screenshots, repositories, and general application telemetry.
 
-Engineering requirements include checking API failures, avoiding duplicate channel creation on retry, and reconciling a channel that was created in AWS but not successfully written to the application's event database. The private implementation review confirmed a channel-creation service using the IVS `CreateChannelCommand` and conditional recording configuration; the public example is independent, not copied production code.
+Engineering requirements include checking API failures, avoiding duplicate channel creation on retry, and reconciling a channel that was created in AWS but not successfully written to the application's event database. The reference SDK example demonstrates `CreateChannel` and optional recording configuration; deployments must validate their own implementation.
 
 ## 2. Live: the stream stays available while AI runs independently
 
@@ -122,7 +122,7 @@ Especially for the AI assistant, retrieval must be permission-scoped: a user can
 
 **MediaFlux AI** demonstrates how **microservices on Amazon EC2** can deliver a coherent live-media production workspace by orchestrating exactly the AWS services needed for ingest, optional recording, analysis, translation, clip creation, and generative-AI-assisted review. The engineering value is not another video player or AI endpoint: it is the consistent workflow, event/time synchronization, permissions, and media lifecycle connecting them.
 
-*This repository is a public-safe architectural case study and independent reference examples, not the proprietary application source and not a claim of a separately validated production deployment.*
+*This repository documents an AWS architectural reference and standalone examples; it has not been validated as a complete production deployment.*
 
 ## References
 
