@@ -4,7 +4,7 @@
 
 A live streaming event is not finished when the video reaches the player. Production teams also need to understand what happened, convert speech into searchable text, translate content, identify visual moments, create clips, share approved outputs, and return to a recording to ask specific questions. These tasks frequently require separate interfaces and manual handoffs.
 
-**MediaFlux AI** combines them in one web application. Rather than replacing AWS media services, the application runs as **containerized microservices on Amazon EC2** and connects specialized AWS APIs to the decisions made by producers, operators, and administrators. This article focuses on seven managed AWS media/AI services plus EC2: **Amazon IVS, Amazon S3, Amazon Rekognition, Amazon Transcribe, Amazon Translate, AWS Elemental MediaConvert, Amazon Bedrock, and Amazon EC2**. It deliberately excludes unrelated platform capabilities and any private product source.
+**MediaFlux AI** combines them in one web application. Rather than replacing AWS media services, the application runs as **containerized microservices on Amazon EC2** and connects specialized AWS APIs to the decisions made by producers, operators, and administrators. This article focuses on seven managed AWS media/AI services plus EC2: **Amazon IVS, Amazon S3, Amazon Rekognition, Amazon Transcribe, Amazon Translate, AWS Elemental MediaConvert, Amazon Bedrock, and Amazon EC2**. The scope is limited to the application features and AWS services described in this article.
 
 ## What users see: five application areas
 
