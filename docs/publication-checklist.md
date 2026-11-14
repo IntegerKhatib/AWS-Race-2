@@ -1,6 +1,10 @@
 # Before sharing publicly
 
 - [x] Use the existing public repository `AWS-Race-2` for the AWS Speed Run Race 2 submission.
+- [x] Review current public source files for named internal platform references, common credential signatures, and private IP patterns (targeted scan only).
+- [x] Add a targeted automated security check, protective .gitignore, and SECURITY.md.
+- [ ] Enable GitHub secret scanning and push protection (where available) in repository settings.
+- [ ] Review historical commits: earlier text described internal source-code paths; current-file fixes do **not** erase Git history.
 - [ ] Validate diagrams and AWS SDK examples against a clean sandbox account.
 - [ ] Replace screenshots with sanitized crops: no server IP address, account names, private emails, private identifiers, stream keys, or copyrighted media frames.
 - [ ] Verify whether actual live Transcribe and Rekognition processing uses a parallel capture path versus post-recording analysis.
